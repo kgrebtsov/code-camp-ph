@@ -1,0 +1,60 @@
+.wrapper {
+    width: 800px;
+    padding: 50px;
+    height: auto;
+    background-color: rgb(249, 246, 241);
+    margin-left: 18%;
+    padding-left: 80px;
+    padding-right: 80px;
+}
+
+.recipie-header {
+    color: rgb(71, 100, 16);
+    text-align: center;
+}
+
+.recipie-image {
+   height: 400px;
+   width: 400px;
+   display: block;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 4px;
+}
+
+.alt-img {
+    text-align: center;
+    padding-top: 15px;
+    color: rgb(82, 129, 84);
+    font-weight: bold;
+}
+
+.ingredients{
+    padding-left: 10%;
+}
+.ingredients h3{
+    color: rgb(0, 75, 0);
+}
+
+.ingredients ul li {
+    color: rgb(0, 100, 0);
+    font-size: 1.5em;
+    padding-top: 5px;
+}
+
+.steps-to-make {
+    padding-left: 5%;
+    
+}
+
+.steps-to-make h3 {
+    text-align: center;
+    color: rgb(120, 3, 3);
+}
+
+.steps-to-make ol li {
+    font-size: 20px;
+    color: rgb(86, 126, 152);
+    font-family: sans-serif;
+    padding-top: 5px;
+}
