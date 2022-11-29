@@ -1,8 +1,12 @@
 var computerSelection;
 var playerSelection;
-var playerScore;
-var computerScore;
+var playerScore = 0;
+var computerScore = 0;
+var maxScore = 5;
+let isGameOver = false;
+
 const choiceArray = ["Rock", "Paper", "Scissors"];
+const newGameBtn = document.querySelector("#newGame");
 
 function getComputerChoice (arr){
     computerSelection = _.sample(arr);
@@ -62,9 +66,37 @@ function game (){
        playRound(playerSelection, computerSelection);
     }
 
-    if (playerScore > computerScore) {
-        console.log ("We have a winner - you!");
-    } else console.log ("Your computer master won!");
+   
 }
 
-game();
+var buttons = document.querySelectorAll('.selection');
+
+buttons.forEach( button => {
+    button.addEventListener('click', function () {
+          playRound(button.textContent,  getComputerChoice(choiceArray));
+          document.getElementById("player").innerHTML = playerScore;
+          document.getElementById("computer").innerHTML = computerScore;
+          endGame();
+        });
+    });
+
+
+
+function endGame() {
+    if(playerScore===maxScore || computerScore === maxScore){
+        isGameOver = true;
+    } if (playerScore === maxScore){
+        finalScore.innerText = "You won the game! Yay!";
+    } else if (computerScore === maxScore){
+        finalScore.innerText = "You lost the game. Maybe next time.";
+    }
+}
+
+newGameBtn.addEventListener("click", function () {
+    isGameOver = false;
+    playerScore = 0;
+    computerScore = 0;
+    player.innerText = "0";
+    computer.innerText = "0";
+    finalScore.innerText = "";
+  });
