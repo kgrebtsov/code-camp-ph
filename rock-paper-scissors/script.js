@@ -23,35 +23,35 @@ function getPlayerSelection(){
 
 function playRound (playerSelection, computerSelection){
     if (playerSelection === computerSelection){
-        console.log ("Its a tie, try againg");
+        document.getElementById('roundresult').innerHTML = "Its a tie, try againg";
     } 
     else if (playerSelection === 'rock') {
         if (computerSelection === 'scissors') {
             playerScore++;
-            console.log ("You win! Rock beats Scissors!");           
+            document.getElementById('roundresult').innerHTML = "You win! Rock beats Scissors!";           
         } else {
             computerScore++;
-            console.log ("You lose! Paper beats Rock!");
+            document.getElementById('roundresult').innerHTML = "You lose! Paper beats Rock!";
         }
     }
     // Paper beats Rock
     else if (playerSelection === 'paper') {
         if (computerSelection === 'rock') {
             playerScore++;
-            console.log ("You win! Paper beats Rock!");
+            document.getElementById('roundresult').innerHTML = "You win! Paper beats Rock!";
         } else {
             computerScore++;
-            console.log ("You lose! Scissors beats Paper!");
+            document.getElementById('roundresult').innerHTML = "You lose! Scissors beats Paper!";
         }
     }
     // Scissors beat Paper
     else if (playerSelection === 'scissors') {
         if (computerSelection === 'paper') {
             playerScore++
-            console.log ("You win! Scissors beats Paper!");
+            document.getElementById('roundresult').innerHTML = "You win! Scissors beats Paper!";
         } else {
             computerScore++
-            console.log ("You lose! Rock beats Scissors!");
+            document.getElementById("roundresult").innerHTML = "You lose! Rock beats Scissors!";
             
         }
 }
@@ -84,6 +84,7 @@ buttons.forEach( button => {
 
 function endGame() {
     if(playerScore===maxScore || computerScore === maxScore){
+        document.getElementById('roundresult').innerHTML = "";
         isGameOver = true;
     } if (playerScore === maxScore){
         finalScore.innerText = "You won the game! Yay!";
@@ -99,4 +100,5 @@ newGameBtn.addEventListener("click", function () {
     player.innerText = "0";
     computer.innerText = "0";
     finalScore.innerText = "";
+    roundScore.innerText = "";
   });
