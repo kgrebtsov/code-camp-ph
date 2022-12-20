@@ -5,7 +5,7 @@ const getSurveyTitleList = async function () {
   let response = await fetch("https://api.typeform.com/forms", {
     method: "get",
     headers: {
-      Authorization: `Bearer tfp_FUpkJGbtX9ybEXdzXaBErdejWx6LKie7HxAssdtQ5YD9_e5CRvUVA2mM9`,
+      Authorization: `Bearer tfp_7adWeiLCzemF9PVA5m4mpRRvkDxvycYY66MeGSQ6sNjv_enr3Rva8pWVc`,
     },
   });
   const myData = await response.json();
@@ -52,12 +52,13 @@ const myNewList = mySurveyTitleList.items.map(
 
 const myNewSurveyList = new SurveyList(myNewList);
 
+
 // get questions from Typeform APY
 const getSurveyQuestionleList = async function () {
   let response = await fetch("https://api.typeform.com/forms/vAEglIar", {
     method: "get",
     headers: {
-      Authorization: `Bearer tfp_FUpkJGbtX9ybEXdzXaBErdejWx6LKie7HxAssdtQ5YD9_e5CRvUVA2mM9`,
+      Authorization: `Bearer tfp_7adWeiLCzemF9PVA5m4mpRRvkDxvycYY66MeGSQ6sNjv_enr3Rva8pWVc`,
     },
   });
   const myData = await response.json();
@@ -85,16 +86,30 @@ myNewSurveyList.item.forEach((item) => {
   item.questions = targetQuestionData;
 });
 
-console.log(myNewSurveyList.item[0]['questions'])
+// get IDs of all forms that have been returned from typeform
+function getAllFormIds() {
+  const surveyList = myNewSurveyList.item;
+  const formIdList = [];
+  surveyList.forEach((item) => {
+    formIdList.push(item.id);
+    return formIdList;
+  });
+
+}
+
+// response fetch url to template
+let responseId = "vAEglIar";
+let url = `https://api.typeform.com/forms/${responseId}/responses`;
 
 // get responsed from Typeform APY
 const getResponseleList = async function () {
   let response = await fetch(
-    "https://api.typeform.com/forms/vAEglIar/responses",
+    // "https://api.typeform.com/forms/vAEglIar/responses"
+    url,
     {
       method: "get",
       headers: {
-        Authorization: `Bearer tfp_FUpkJGbtX9ybEXdzXaBErdejWx6LKie7HxAssdtQ5YD9_e5CRvUVA2mM9`,
+        Authorization: `Bearer tfp_7adWeiLCzemF9PVA5m4mpRRvkDxvycYY66MeGSQ6sNjv_enr3Rva8pWVc`,
       },
     }
   );
@@ -106,27 +121,34 @@ const getResponseleList = async function () {
 let returnedResponseList = await getResponseleList();
 
 //put together question with answer
+const surveyIdToBeMatched = myNewSurveyList.item[0];
+const responsesToBeMatched = returnedResponseList.items[0];
 
-function matchResponsewithQuestions() {
-  let surveyIdToBematched = myNewSurveyList.item[0][["id"]];
-  for (let i = 0; i < returnedResponseList.items[0].answers; i++) {
+function matchResponsewithQuestions(surveyIdToBematched) {
+  for (let i = 0; i < responsesToBeMatched.answers.length; i++) {
     if (
-      myNewSurveyList.item[0]["question"][["id"]] ===
-      returnedResponseList.items[0].answers[0]["id"]
+      surveyIdToBeMatched.questions.questionlist[i].id ===
+      responsesToBeMatched.answers[i].field.id
     ) {
-      console.log(
-        myNewSurveyList.item[0]["title"] +
-          " " +
-          returnedResponseList.items[0].answers[0]["text"]
-      );
+      let question = surveyIdToBeMatched.questions.questionlist[i].title;
+      let answer = responsesToBeMatched.answers[i].text
+      if (responsesToBeMatched.answers[i].type === 'text'){
+        answer = responsesToBeMatched.answers[i].text;
+      } else if (responsesToBeMatched.answers[i].type === 'email'){
+        answer = responsesToBeMatched.answers[i].email;
+      }
+      // console.log(
+      //   surveyIdToBeMatched.questions.questionlist[i].title +
+      //     " :" +
+      //     responsesToBeMatched.answers[i].text
+      // )
+      console.log(question + ' :' + answer);
     }
   }
 }
 
-// let myArr = myNewSurveyList.item;
-// console.log(myNewSurveyList.item[0][["id"]]);
-// console.log(myNewSurveyList.item[0]["questions"].questionlist[0]['id']);
+matchResponsewithQuestions(surveyIdToBeMatched);
 
-matchResponsewithQuestions();
-// console.log(questionWithAnswer)
-
+let surveyStructureToJson = responsesToBeMatched;
+const jsonString = JSON.stringify(surveyStructureToJson);
+console.log(jsonString);

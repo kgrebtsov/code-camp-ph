@@ -1,0 +1,25 @@
+{
+  "id": "vAEglIar",
+  "title": "Customer Onboarding Feedback Survey (copy)",
+  "questions": {
+    "questionlist": [
+      {
+        "id": "wWWkhBzoZ6oI",
+        "title": "How has your *training and assistance* been so far?"
+      },
+      {
+        "id": "2u6k7M4Pfism",
+        "title": "Could you please explain why you put {{field:ede1e7c6-2b79-40de-aa8d-98751c9bbc5f}} out of 10?"
+      },
+      {
+        "id": "2p0s5fu3i1Hp",
+        "title": "And which part of the onboarding was *most helpful*?"
+      },
+      { "id": "irAzn2W3dNgS", "title": "And which part was *least helpful*? " },
+      {
+        "id": "tNBimbulFzxV",
+        "title": "Before you go, could we grab your *email address*?"
+      }
+    ]
+  }
+}
